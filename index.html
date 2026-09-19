@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>皇室战争 横幅图鉴 · Clash Royale Banner Gallery</title>
+<title>皇室战争 战旗图鉴 · Clash Royale Banner Gallery</title>
 <style>
 :root{
   --bg:#f4f6fb; --ink:#131a2e; --ink2:#4a5570; --ink3:#8792ad;
@@ -128,7 +128,7 @@ footer code{background:#eef1f8;padding:1.5px 5px;border-radius:5px;font-size:12p
 <header class="hero">
   <div class="wrap">
     <div class="chip-top">CLASH ROYALE · <b>BANNER GALLERY</b></div>
-    <h1>皇室战争 <em>全部横幅</em> 图鉴</h1>
+    <h1>皇室战争 <em>全部战旗</em> 图鉴</h1>
     <p class="lead" id="lead"></p>
     <div class="stats" id="stats"></div>
     <div class="hint">↓ 向下滚动浏览 · 点击卡片查看大图与背景 / 前景拆分</div>
@@ -142,17 +142,17 @@ footer code{background:#eef1f8;padding:1.5px 5px;border-radius:5px;font-size:12p
       <input id="q" type="search" placeholder="搜索名称 / 编号 / 资源文件名…" autocomplete="off">
     </label>
     <div class="grp" role="group" aria-label="视图模式">
-      <button class="tgl on" id="m-pair" title="背景 + 前景叠加成一组横幅">配对视图</button>
+      <button class="tgl on" id="m-pair" title="背景 + 前景叠加成一组战旗">配对视图</button>
       <button class="tgl" id="m-piece" title="按 CSV 原始行逐件浏览（背景 / 前景分开）">单件视图</button>
     </div>
     <select id="ty" style="display:none"><option value="">全部部件</option><option value="bg">仅背景</option><option value="fg">仅前景</option></select>
     <select id="box"><option value="">全部上架位置</option></select>
     <select id="sort">
-      <option value="idx">按横幅编号</option>
+      <option value="idx">按战旗编号</option>
       <option value="name">名称 A → Z</option>
       <option value="box">按上架位置分组</option>
     </select>
-    <button class="tgl" id="t-full" title="仅看背景 + 前景齐全的横幅">背景 + 前景齐全</button>
+    <button class="tgl" id="t-full" title="仅看背景 + 前景齐全的战旗">背景 + 前景齐全</button>
     <button class="tgl gold" id="t-do" title="仅看开局默认拥有">默认拥有</button>
     <button class="clear" id="reset">重置</button>
   </div>
@@ -161,15 +161,14 @@ footer code{background:#eef1f8;padding:1.5px 5px;border-radius:5px;font-size:12p
 <main class="wrap">
   <div class="bar">
     <div class="n" id="count"></div>
-    <div class="tip" id="tip">数据源 banners.csv · 图像由游戏内 .sc 精灵重建 · 卡片为背景 + 前景叠加效果</div>
+    <div class="tip" id="tip">战旗收录截止到2026年6月。</div>
   </div>
   <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" style="display:none">没有符合条件的横幅，试试放宽筛选条件。</div>
+  <div class="empty" id="empty" style="display:none">没有符合条件的战旗，试试放宽筛选条件。</div>
 </main>
 
 <footer class="wrap">
-  <div>横幅数据来自 <code>banners.csv</code>（背景 Background 与前景 Foreground 成对展示，按精灵文件名自动配对）。
-  图像由游戏内 <code>.sc</code> 精灵重建渲染（缺失素材从官方 CDN 补齐后转换渲染）。
+  <div>
   <span id="f-drop"></span></div>
 </footer>
 
@@ -200,15 +199,13 @@ const FLAG = '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke
   const fgOnly = B.filter(b=>!b.bg&&b.fg).length;
   const own = B.filter(b=>b.own).length;
   document.getElementById('lead').textContent =
-    `按游戏内横幅数据表 banners.csv 整理的 ${B.length} 组横幅（共 ${P.length} 件背景 / 前景部件），`
-    + `全部已用游戏内精灵文件重建出官方图像，其中 ${pair} 组背景 + 前景齐全、${bgOnly} 组仅背景、${fgOnly} 组仅前景。`
-    + `可在下方切换「单件视图」逐件浏览全部 ${P.length} 件部件。`;
-  const S=[[B.length,"横幅组数"],[pair,"背景+前景齐全"],[P.length,"部件总数"],[own,"默认拥有"]];
+    ``;
+  const S=[[B.length,"战旗组数"],[pair,"背景+前景齐全"],[P.length,"部件总数"],[own,"默认拥有"]];
   document.getElementById('stats').innerHTML = S.map(([v,l],i)=>
     `<div class="stat${i===1?' warn':''}"><b>${v}</b><span>${l}</span></div>`).join('');
   const drop = META.droppedCount | 0;
   if(drop) document.getElementById('f-drop').textContent =
-    `CSV 中另有 ${drop} 条尚未公开素材的空占位行未列入本页。`;
+    ``;
 })();
 
 const boxCount={};
@@ -288,12 +285,12 @@ function render(){
   VIEW=SRC.filter(match).sort(sortList);
   countEl.innerHTML = S.mode==="piece"
     ? `显示 <b>${VIEW.length}</b> / ${P.length} 件部件（背景 ${META.pieceBg||0} · 前景 ${META.pieceFg||0}）`
-    : `显示 <b>${VIEW.length}</b> / ${B.length} 组横幅`;
+    : `显示 <b>${VIEW.length}</b> / ${B.length} 组战旗`;
   document.getElementById('tip').textContent = S.mode==="piece"
-    ? "单件视图：CSV 一行 = 一件部件，背景与前景分开浏览"
+    ? "单件视图：背景与前景分开浏览"
     : "配对视图：背景 + 前景叠加显示游戏内实际效果";
   emptyEl.style.display=VIEW.length?"none":"block";
-  emptyEl.textContent = S.mode==="piece"?"没有符合条件的部件，试试放宽筛选条件。":"没有符合条件的横幅，试试放宽筛选条件。";
+  emptyEl.textContent = S.mode==="piece"?"没有符合条件的部件，试试放宽筛选条件。":"没有符合条件的战旗，试试放宽筛选条件。";
   grid.innerHTML=VIEW.map(card).join('');
 }
 grid.addEventListener('click',ev=>{
@@ -330,7 +327,7 @@ function openBy(i){
     <div class="lb-parts">${parts.map(p=>`<figure><figcaption>${p[0]}</figcaption><img loading="lazy" src="${IMG}${p[1]}" alt=""></figure>`).join('')}</div>
     <dl style="margin-top:16px">
       <dt>配对 Key</dt><dd>${esc(b.n)}</dd>
-      <dt>横幅编号</dt><dd>${esc(b.k||"—")}</dd>
+      <dt>战旗编号</dt><dd>${esc(b.k||"—")}</dd>
       <dt>精灵文件</dt><dd>${b.sc.map(esc).join("<br>")||"—"}</dd>
     </dl>`;
   lb.classList.add('open');
@@ -350,8 +347,8 @@ function openPiece(p){
     <dl style="margin-top:16px">
       <dt>部件名</dt><dd>${esc(p.n)}</dd>
       <dt>类型</dt><dd>${bg?"Background 背景":"Foreground 前景"}</dd>
-      <dt>所属横幅</dt><dd>${esc(p.gt||"—")}</dd>
-      <dt>横幅编号</dt><dd>${esc(p.k||"—")}</dd>
+      <dt>所属战旗</dt><dd>${esc(p.gt||"—")}</dd>
+      <dt>战旗编号</dt><dd>${esc(p.k||"—")}</dd>
       <dt>上架位置</dt><dd>${esc(p.box||"—")}</dd>
       <dt>精灵文件</dt><dd>${esc(p.sc||"—")}</dd>
     </dl>`;
