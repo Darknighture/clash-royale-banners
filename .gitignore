@@ -9,6 +9,7 @@
 # build/ 内含下载转存的 .sc/.sctx 与渲染脚本，共约 89 MB
 build/
 _verify.html
+_verify_anim.html
 _shot.png
 
 # ---------- Python ----------
